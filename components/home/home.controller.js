@@ -10,8 +10,7 @@ class HomeController {
 
   getList(offset) {
     this.loadingPokemonList = true;
-
-    this._$http.get(`${process.env.API}/api/pokemon/list?offset=${offset || 0}`).then(response => {
+    this._$http.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset || 0}&limit=151`).then(response => {
       this.loadingPokemonList = false;
 
       response.data.results.map((item, index) => {
