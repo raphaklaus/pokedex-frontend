@@ -17,20 +17,23 @@ class ListController {
         status: []
       };
 
-      this.pokemon.description = info.description;
+      this.pokemon.description = info.description || "Description not available";
       this.pokemon.image = info.image;
     });
 
-    this.getComments();
+    this.comments = this.getComments();
   }
 
   postComment() {
-    this.user = '';
-    this.text = '';
+    var comments = this.getComments()
+    var comment = {user: this.user, text: this.text}
+    comments.push(comment)
+    this.comments = comments
+    localStorage.setItem(`comments_${this.pokemonNumber}`, JSON.stringify(comments))
   }
 
   getComments() {
-    this.loading = false;
+    return JSON.parse(localStorage.getItem(`comments_${this.pokemonNumber}`) || "[]")
   }
 }
 
